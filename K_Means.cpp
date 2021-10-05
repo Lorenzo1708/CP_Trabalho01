@@ -154,22 +154,21 @@ void kMeansClustering(vector<Point>* points, int epochs, int k, int noThreads) {
     myfile.close();
 }
 
-int main() {
-    for (int noThreads = 1; noThreads <= 8; noThreads *= 2)
+int main(int argc, char* argv[]) {
+    int noThreads = atoi(argv[argc - 1]);
+
+    vector<Point> points = readcsv();
+
+    double executionsTime = 0.0;
+
+    for (int j = 0; j < (int) (NO_EXECUTIONS); j++)
     {
-        vector<Point> points = readcsv();
+        double executionTime = omp_get_wtime();
 
-        double executionsTime = 0.0;
+        kMeansClustering(&points, 100, 5, noThreads);
 
-        for (int i = 0; i < (int) (NO_EXECUTIONS); i++)
-        {
-            double executionTime = omp_get_wtime();
-
-            kMeansClustering(&points, 100, 5, noThreads);
-
-            executionsTime += omp_get_wtime() - executionTime;
-        }
-
-        printf("[%d] %lfs\n", noThreads, executionsTime / (double) (NO_EXECUTIONS));
+        executionsTime += omp_get_wtime() - executionTime;
     }
+
+    printf("[%d] %lfs\n", noThreads, executionsTime / (double) (NO_EXECUTIONS));
 }
