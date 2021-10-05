@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
     {
         double executionTime = omp_get_wtime();
 
-        kMeansClustering(&points, 100, 5, noThreads);
+        kMeansClustering(&points, 262144, 5, noThreads);
 
         executionsTime += omp_get_wtime() - executionTime;
     }
