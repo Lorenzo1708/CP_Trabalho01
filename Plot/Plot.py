@@ -37,3 +37,18 @@ for noThread in noThreads:
     matplotlib.pyplot.title('Clustered: Spending (Y) versus Income (X)')
 
     matplotlib.pyplot.savefig(f'Output/{fileName}.png')
+
+# After Clustering
+matplotlib.pyplot.figure()
+
+data = pandas.read_csv(f'Output/Output_Sequencial.csv')
+
+seaborn.scatterplot(x=data.X, y=data.Y, hue=data.C, palette=seaborn.color_palette('hls', n_colors=5))
+
+matplotlib.pyplot.xlabel('Annual Income (k$)')
+
+matplotlib.pyplot.ylabel('Spending Score (1-100)')
+
+matplotlib.pyplot.title('Clustered: Spending (Y) versus Income (X)')
+
+matplotlib.pyplot.savefig(f'Output/Output_Sequencial.png')
